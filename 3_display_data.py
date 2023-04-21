@@ -23,19 +23,22 @@ today = datetime.today()
 dt_L3Yr=(today + timedelta(days=-1080)).strftime('%Y%m%d')
 trade_date_max=df_weekly_metric_index['trade_date'].max()
 
-df_sum_1=df_weekly_metric_index.loc[(df_weekly_metric_index['trade_date']==trade_date_max),['index_code','名称','pe_ttm','pb']].reset_index(drop=True)
+df_sum_1=df_weekly_metric_index.loc[(df_weekly_metric_index['trade_date']==trade_date_max),['index_code','名称','close','pe_ttm','pb']].reset_index(drop=True)
 
 index_name_list=list(set(df_weekly_metric_index['名称']))
 for i in index_name_list:
-  for j in ['pe_ttm','pb']:
+  for j in ['close','pe_ttm','pb']:
     tmp=df_weekly_metric_index.loc[(df_weekly_metric_index['名称']==i) & (df_weekly_metric_index['trade_date']>=dt_L3Yr),j]
     x=float(df_sum_1.loc[df_sum_1['名称']==i,j])
-    x_pct=stats.percentileofscore(tmp, x)
+    x_pct=round(stats.percentileofscore(tmp, x),2)
     df_sum_1.loc[df_sum_1['名称']==i,"3年分位数_"+j]=x_pct
 
 st.markdown('## I.整体统计')
 st.text('最新数据点：'+trade_date_max)
-st.table(df_sum_1[['index_code','名称','pe_ttm','3年分位数_pe_ttm','pb','3年分位数_pb']])
+#st.table(df_sum_1[['index_code','名称','close','3年分位数_close','pe_ttm','3年分位数_pe_ttm','pb','3年分位数_pb']])
+st.table(df_sum_1[['index_code','名称','close','3年分位数_close','pe_ttm','3年分位数_pe_ttm','pb','3年分位数_pb']].\
+         style.format({"close":"{:.2f}","3年分位数_close":"{:.2f}","pe_ttm":"{:.2f}","3年分位数_pe_ttm":"{:.2f}","pb":"{:.2f}","3年分位数_pb":"{:.2f}"}))
+
 
 
 ################### II.单指数分析 ###################
@@ -51,7 +54,7 @@ with col1:
 
 ### 指标选择
 
-metric_list=['pe_ttm','pb']
+metric_list=['close','pe_ttm','pb']
 
 with col2:
   metric_selected=st.selectbox('选择指标',metric_list)
