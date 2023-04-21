@@ -88,6 +88,8 @@ df_weekly_metric_index_2['25分位']=df_weekly_metric_index_2[metric_selected].q
 st.markdown('#### '+index_name_selected+' '+metric_selected)
 
 fig1 = px.line(df_weekly_metric_index_2, x = 'trade_date', y = [metric_selected,'25分位','50分位','75分位'])
+fig1.update_xaxes(dtick=7)
+
 st.plotly_chart(fig1)
 
 
