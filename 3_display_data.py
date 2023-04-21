@@ -10,6 +10,10 @@ import time as time
 from datetime import datetime,timedelta
 
 
+st.set_page_config(
+        page_title="指数分析",
+)
+
 ################### 读取数据 ###################
 
 df_weekly_metric_index=pd.read_csv('./index_weekly_metric.csv',converters={'trade_date':str})
