@@ -116,6 +116,21 @@ top_stock_list=list(tmp['con_code'].head(top_n))
 
 df_weekly_metric_stock_3=df_weekly_metric_stock_2[df_weekly_metric_stock_2['con_code'].isin(top_stock_list)].reset_index(drop=True)
 
+#填充缺失的trade date
+tmp_1=list(df_weekly_metric_stock_3['trade_date'].unique())
+tmp_2=df_weekly_metric_stock_3[['con_code','name']].drop_duplicates().reset_index(drop=True)
+
+test=pd.DataFrame()
+
+for i in list(tmp_2['con_code']):
+    tmp=pd.DataFrame(tmp_1).rename(columns={0:'trade_date'})
+    name=list(tmp_2.loc[tmp_2['con_code']==i,'name'])[0]
+    tmp['con_code']=i
+    tmp['name']=name
+    test=pd.concat([test,tmp])
+ 
+df_weekly_metric_stock_3=pd.merge(df_weekly_metric_stock_3[[i for i in df_weekly_metric_stock_3.columns if i!='name']],test,on=['trade_date','con_code'],how='right').sort_values(['con_code','trade_date'])
+#st.table(df_weekly_metric_stock_3[df_weekly_metric_stock_3['con_code']=='600585.SH'])
 
 #指标over time
 st.markdown('#### '+index_name_selected+'对应股票：'+metric_selected)
