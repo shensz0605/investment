@@ -153,5 +153,6 @@ st.markdown('## III.基金推荐')
 
 top_fund_n = st.radio("指数成分TOP ",(5,10),horizontal=True)
 
-st.write(df_fund_index_pct[['ts_code','fund_name',index_name_selected]].sort_values(index_name_selected,ascending=False).rename(columns={index_name_selected:index_name_selected+'_占比'}).head(top_fund_n)\
-         .style.hide_index().format({index_name_selected+'_占比':"{:.2f}"}).bar(subset=[index_name_selected+'_占比'], align="mid").to_html(),unsafe_allow_html=True)
+st.write(df_fund_index_pct[['ts_code','fund_name',index_name_selected]].sort_values(index_name_selected,ascending=False).rename(columns={index_name_selected:index_name_selected+'_占比'}).head(top_fund_n))
+#st.write(df_fund_index_pct[['ts_code','fund_name',index_name_selected]].sort_values(index_name_selected,ascending=False).rename(columns={index_name_selected:index_name_selected+'_占比'}).head(top_fund_n)\
+#         .style.hide_index().format({index_name_selected+'_占比':"{:.2f}"}).bar(subset=[index_name_selected+'_占比'], align="mid").to_html(),unsafe_allow_html=True)
