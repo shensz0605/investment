@@ -42,8 +42,9 @@ for i in index_name_list:
 
 st.markdown('## I.整体统计')
 st.text('最新数据点：'+trade_date_max)
-st.write(df_sum_1[['index_code','名称','close','3年分位数_close','pe_ttm','3年分位数_pe_ttm','pb','3年分位数_pb']].style.hide_index().format({"close":"{:.2f}","3年分位数_close":"{:.2f}","pe_ttm":"{:.2f}","3年分位数_pe_ttm":"{:.2f}","pb":"{:.2f}","3年分位数_pb":"{:.2f}"}).to_html()\
-         ,unsafe_allow_html=True)
+st.write(df_sum_1)
+#st.write(df_sum_1[['index_code','名称','close','3年分位数_close','pe_ttm','3年分位数_pe_ttm','pb','3年分位数_pb']].style.hide_index().format({"close":"{:.2f}","3年分位数_close":"{:.2f}","pe_ttm":"{:.2f}","3年分位数_pe_ttm":"{:.2f}","pb":"{:.2f}","3年分位数_pb":"{:.2f}"}).to_html()\
+#         ,unsafe_allow_html=True)
 
 
 
